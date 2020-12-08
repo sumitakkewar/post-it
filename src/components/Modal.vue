@@ -69,20 +69,22 @@ export default defineComponent({
     return {
       title: "",
       description: "",
-      error: [],
+      error: [] as string[],
     };
   },
   methods: {
     addNote() {
-      if (this.title === "") {
+      if (this.title.trim() === "") {
         this.error.push("Please enter title");
       }
-      if (this.description === "") {
+      if (this.description.trim() === "") {
         this.error.push("Please enter description");
       }
       if (this.error.length === 0) {
-        this.$emit("on-submit", this.title, this.description);
+        this.$emit("on-submit", this.title.trim(), this.description.trim());
         this.$emit('on-close')
+      } else {
+        setTimeout(() => this.error = [] , 1000);
       }
     },
   },
