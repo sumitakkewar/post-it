@@ -19,6 +19,7 @@ import Note from "@/components/Note.vue";
 import Modal from "@/components/Modal.vue";
 import draggable from "vuedraggable";
 import { mapActions, mapGetters } from "vuex";
+import NoteType, { Post } from "@/types/note";
 
 export default defineComponent({
   name: "Content",
@@ -30,7 +31,7 @@ export default defineComponent({
   },
   data() {
     return {
-      notes: [],
+      notes: [] as NoteType[],
     };
   },
   created() {
@@ -43,11 +44,8 @@ export default defineComponent({
     onDragDrop() {
       this.updateItems(this.notes);
     },
-    onSubmitModal(title, desc) {
-      this.addNewItem({
-        title,
-        desc,
-      });
+    onSubmitModal(title: string, desc: string) {
+      this.addNewItem(new Post(title, desc));
     },
   },
   components: {
